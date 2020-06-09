@@ -12,5 +12,7 @@ public interface UserDAO {
 	public String getUserGroup(String username);
 
 	public void updateUser(UserEntity user);
+
+	public double getNumOfUser();
 }
  

@@ -170,8 +170,8 @@
 						<table class="table table-striped table-bordered table-hover"
 							id="dataTables-dsSanPham">
 							<thead>
-								<tr>
-								<tr class="info">
+								
+								<tr class="success">
 									<th><div align="center">No</div></th>
 									<th><div align="center">Mã KH</div></th>
 									<th><div align="center">Tên KH</div></th>
@@ -179,9 +179,6 @@
 									<th><div align="center">Điểm</div></th>
 									<th><div align="center">Bậc</div></th>
 									<th><div align="center">Action</div></th>
-								</tr>
-
-
 								</tr>
 							</thead>
 

@@ -21,8 +21,15 @@ public class EmployeeController {
 	@Autowired
 	private UserDAO userDAO;
 	@RequestMapping(value = "/employee", method = RequestMethod.GET)
-	public String ListEmployee(Model model) {
-		List<UserEntity> list = userDAO.getAllUser(0, 0);
+	public String ListEmployee(Model model,@RequestParam(value = "page", required = false) Integer page) {
+		int USERS_PER_PAGE = 5;
+		if (page == null)
+			page = 1;
+		int start = (page - 1) * USERS_PER_PAGE;
+		System.out.println("@Yen debug start: "+start);
+//		System.out.println("@Yen debug start: "+start);
+		List<UserEntity> list = userDAO.getAllUser(start, start + USERS_PER_PAGE);
+		System.out.println("@Yen debug list.size(): "+list.size());
 		for (UserEntity userEntity : list) {
 			if (userEntity.getSex().equalsIgnoreCase("nu")) {
 				userEntity.setSex("Nữ");
@@ -34,6 +41,14 @@ public class EmployeeController {
 //				userEntity.getGroupId().setId("Nhân viên");
 //			}
 		}
+		double userCount = userDAO.getNumOfUser();
+		System.out.println("@Yen debug userCount: "+userCount);
+		int pageCount = (int) Math.ceil(userCount / USERS_PER_PAGE);
+//		model.addAttribute("listUsers", list);
+		model.addAttribute("USERS_PER_PAGE", USERS_PER_PAGE);
+
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("page", page.intValue());
 		model.addAttribute("listEmployee", list);
 		return "employee";
 	}

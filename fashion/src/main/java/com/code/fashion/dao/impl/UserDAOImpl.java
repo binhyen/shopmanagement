@@ -62,8 +62,14 @@ public class UserDAOImpl implements UserDAO {
 			Query query = session.createQuery(sql);
 			List<UserEntity> list = query.list();
 			session.getTransaction().commit();
-
-			return list;
+			if (0 <= start && start <= list.size() && start <= end) {
+				if (end > list.size()) {
+					end = list.size() ;
+				}
+				return list.subList(start, end);
+			} else
+				return null;
+//			return list;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			System.out.println(e.getMessage());
@@ -82,6 +88,25 @@ public class UserDAOImpl implements UserDAO {
 		} catch (Exception e) {
 			session.getTransaction().rollback();
 			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
+	}
+
+
+	public double getNumOfUser() {
+		String sql = "Select u From " + UserEntity.class.getName() + " u ";
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery(sql);
+			List<UserEntity> list = query.list();
+			session.getTransaction().commit();
+			return list.size();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			System.out.println(e.getMessage());
+			return 0;
 		} finally {
 			session.close();
 		}

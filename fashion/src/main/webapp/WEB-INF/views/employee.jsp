@@ -123,32 +123,35 @@
 				</div>
 				</nav>
 			</div>
-			<div class="col-10">
+			<div class="col">
 				<!-- Page Content -->
 				<div id="page-wrapper">
 					<div class="container-fluid">
-						<div class="col-xs-11"
-							style="padding-top: 20px; border: 1px solid;">
+						<!-- <div class="col-xs-12"
+							style="padding-top: 20px; border: 1px solid;"> -->
 							<h3 style="color: red">DANH SÁCH NHÂN VIÊN</h3>
-							<table class="table">
+							<table class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr class="success">
-										<th>Mã nhân viên</th>
-										<th>Họ tên</th>
-										<th>Ngày sinh</th>
-										<th>Địa chỉ</th>
-										<th>Giới tính</th>
-										<th>Số ĐT</th>
-										<th>Email</th>
-										<th>Phân quyền</th>
+										<th><div align="center">No</div></th>
+										<th><div align="center">Mã nhân viên</div></th>
+										<th><div align="center">Họ tên</div></th>
+										<th><div align="center">Ngày sinh</div></th>
+										<th><div align="center">Địa chỉ</div></th>
+										<th><div align="center">Giới tính</div></th>
+										<th><div align="center">Số ĐT</div></th>
+										<th><div align="center">Email</div></th>
+										<th><div align="center">Phân quyền</div></th>
 										<!-- <th>Password</th> -->
-										<th>Chức năng</th>
+										<th><div align="center">Chức năng</div></th>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach var="employee" items="${listEmployee}">
+									<c:forEach var="employee" items="${listEmployee}" varStatus="status">
 										<tr>
-											<td class="success">${employee.id}</td>
+											
+											<td class="success">${status.index+1+(page-1)*numberUsersInOnePage}</td>
+											<td>${employee.id}</td>
 											<td>${employee.firstName}${employee.lastName}</td>
 											<td>${employee.dateOfBirth}</td>
 											<td>${employee.address}</td>
@@ -157,15 +160,83 @@
 											<td>${employee.email}</td>
 											<td>${employee.getGroupId().getId()}</td>
 											<%-- <td>${employee.password}</td> --%>
-											<th class="danger"><a href="edit?id=${employee.id}"><button
+											<td>
+												<div align="center">
+													<a href="customer?edit?id=${employee.id}"
+														class="btn btn-link"> <span
+														class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+													</a> <a href="deleteEmployee?id=${employee.id}"
+														class="btn btn-link"> <span
+														class="glyphicon glyphicon-remove" style="color: red"
+														aria-hidden="true"></span>
+													</a>
+												</div>
+											</td>
+											<%-- <th class="danger"><a href="edit?id=${employee.id}"><button
 														type="button" class="btn btn-warning">
 														<span class="glyphicon glyphicon-pencil">Sửa</span>
-													</button></a></th>
+													</button></a></th> --%>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
-							<a href="addemployee"><button type="button"
+
+							<nav aria-label="Page navigation" class="text-center">
+							<ul class="pagination">
+								<c:if test="${page>1}">
+									<li><a href="employee?page=1" aria-label="First"> <span
+											aria-hidden="true">&lt;&lt;</span>
+									</a></li>
+									<li><a href="employee?page=${page-1}"
+										aria-label="Previous"> <span aria-hidden="true">&lt;</span>
+									</a></li>
+								</c:if>
+								<c:if test="${page<=1}">
+									<li class="active"><span aria-hidden="true">&lt;&lt;</span>
+									</li>
+									<li class="active"><span aria-hidden="true">&lt;</span></li>
+								</c:if>
+								<c:if test="${page-2>=1}">
+									<c:set var="begin" value="${page-2}"></c:set>
+								</c:if>
+								<c:if test="${page-2<1}">
+									<c:set var="begin" value="1"></c:set>
+								</c:if>
+								<c:if test="${begin+4<=pageCount}">
+									<c:set var="end" value="${begin+4}"></c:set>
+								</c:if>
+								<c:if test="${begin+4>pageCount}">
+									<c:set var="end" value="${pageCount}"></c:set>
+									<c:if test="${end-4>=1}">
+										<c:set var="begin" value="${end-4}"></c:set>
+									</c:if>
+								</c:if>
+								<c:forEach var="i" begin="${begin}" end="${end}">
+									<c:if test="${i==page}">
+										<li class="active"><a>${i}</a></li>
+									</c:if>
+									<c:if test="${i!=page}">
+										<li><a href="employee?page=${i}">${i}</a></li>
+									</c:if>
+								</c:forEach>
+
+								<c:if test="${page<pageCount}">
+									<li><a href="employee?page=${page+1}" aria-label="Next">
+											<span aria-hidden="true">&gt;</span>
+									</a></li>
+									<li><a href="employee?page=${pageCount}" aria-label="Last">
+											<span aria-hidden="true">&gt;&gt;</span>
+									</a></li>
+								</c:if>
+								<c:if test="${page>=pageCount}">
+									<li class="active"><span aria-hidden="true">&gt;</span></li>
+									<li class="active"><span aria-hidden="true">&gt;&gt;</span>
+									</li>
+								</c:if>
+							</ul>
+							</nav>
+
+							<a href="addEmployee"><button type="button"
 									class="btn btn-success" style="margin-bottom: 10px">
 									<span class="glyphicon glyphicon-plus">Thêm</span>
 								</button></a> <br>
@@ -174,7 +245,7 @@
 								<span class="glyphicon glyphicon-search">Tìmkiếm</span>
 							</button>
 							<input type="text" name="timKiem" placeholder="Nhập tìm kiếm" />
-						</div>
+						<!-- </div> -->
 					</div>
 				</div>
 			</div>
