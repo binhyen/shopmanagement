@@ -67,6 +67,12 @@
 		<!-- Page Content -->
 		<div id="page-wrapper">
 			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<h3 class="page-header" style="color: red" align="center">Thêm nhân viên</h3>
+					</div>
+					<!-- /.col-lg-12  -->
+				</div>
 				<div class="container">
 					<br> <span
 						style="color: red; font-size: 15px; margin-bottom: 10px;">${msg}</span>

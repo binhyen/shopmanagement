@@ -26,10 +26,7 @@ public class EmployeeController {
 		if (page == null)
 			page = 1;
 		int start = (page - 1) * USERS_PER_PAGE;
-		System.out.println("@Yen debug start: "+start);
-//		System.out.println("@Yen debug start: "+start);
 		List<UserEntity> list = userDAO.getAllUser(start, start + USERS_PER_PAGE);
-		System.out.println("@Yen debug list.size(): "+list.size());
 		for (UserEntity userEntity : list) {
 			if (userEntity.getSex().equalsIgnoreCase("nu")) {
 				userEntity.setSex("Nữ");
@@ -42,9 +39,7 @@ public class EmployeeController {
 //			}
 		}
 		double userCount = userDAO.getNumOfUser();
-		System.out.println("@Yen debug userCount: "+userCount);
 		int pageCount = (int) Math.ceil(userCount / USERS_PER_PAGE);
-//		model.addAttribute("listUsers", list);
 		model.addAttribute("USERS_PER_PAGE", USERS_PER_PAGE);
 
 		model.addAttribute("pageCount", pageCount);
@@ -88,6 +83,17 @@ public class EmployeeController {
 			@RequestParam(value = "maNV", required = false) String userId) {
 		
 		userDAO.updateUser(user);
+		return "redirect:/employee";
+	}
+	
+	@RequestMapping(value = "/deleteEmployee")
+	public String deleteCustomer(Model model, @RequestParam(name = "id", required = false) String id,
+			@RequestParam(name = "page", required = false) Integer page) {
+		userDAO.deleteEmployee(id);
+		if (page == null) {
+			page = 1;
+		}
+		/* model.addAttribute("deleted", id); */
 		return "redirect:/employee";
 	}
 	

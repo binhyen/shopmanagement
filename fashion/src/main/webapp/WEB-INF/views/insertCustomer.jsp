@@ -67,7 +67,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Thêm khách hàng</h1>
+						<h3 class="page-header" style="color: red">Thêm khách hàng</h3>
 					</div>
 					<!-- /.col-lg-12  -->
 				</div>

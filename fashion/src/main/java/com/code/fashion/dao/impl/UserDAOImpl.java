@@ -111,5 +111,22 @@ public class UserDAOImpl implements UserDAO {
 			session.close();
 		}
 	}
+	
+	public void deleteEmployee(String id) {
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			session.delete(findUserInfo(id));
+			session.getTransaction().commit();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Loi CustomerDAO: " + e.getMessage());
+			session.getTransaction().rollback();
+		} finally {
+			session.close();
+		}
+		
+	}
 
 }

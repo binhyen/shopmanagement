@@ -129,7 +129,13 @@
 					<div class="container-fluid">
 						<!-- <div class="col-xs-12"
 							style="padding-top: 20px; border: 1px solid;"> -->
-							<h3 style="color: red">DANH SÁCH NHÂN VIÊN</h3>
+							<div class="row">
+							<div class="col-lg-12">
+								<!-- <h1 class="page-header">Danh sách khách hàng</h1> -->
+								<h3 class="page-header" style="color: red">Danh sách nhân viên</h3>
+							</div>
+							<!-- /.col-lg-12  -->
+							</div>
 							<table class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr class="success">
@@ -150,7 +156,7 @@
 									<c:forEach var="employee" items="${listEmployee}" varStatus="status">
 										<tr>
 											
-											<td class="success">${status.index+1+(page-1)*numberUsersInOnePage}</td>
+											<td class="success">${status.index+1+(page-1)*USERS_PER_PAGE}</td>
 											<td>${employee.id}</td>
 											<td>${employee.firstName}${employee.lastName}</td>
 											<td>${employee.dateOfBirth}</td>
@@ -162,7 +168,7 @@
 											<%-- <td>${employee.password}</td> --%>
 											<td>
 												<div align="center">
-													<a href="customer?edit?id=${employee.id}"
+													<a href="edit?id=${employee.id}"
 														class="btn btn-link"> <span
 														class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 													</a> <a href="deleteEmployee?id=${employee.id}"
@@ -236,10 +242,10 @@
 							</ul>
 							</nav>
 
-							<a href="addEmployee"><button type="button"
+							<!-- <a href="addEmployee"><button type="button"
 									class="btn btn-success" style="margin-bottom: 10px">
 									<span class="glyphicon glyphicon-plus">Thêm</span>
-								</button></a> <br>
+								</button></a> <br> -->
 							<button type="button" class="btn btn-info"
 								style="margin-bottom: 10px">
 								<span class="glyphicon glyphicon-search">Tìmkiếm</span>

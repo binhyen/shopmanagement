@@ -35,7 +35,7 @@ public class CustomerController {
 	public String data(HttpServletRequest request, Model model,
 			@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(name = "id", required = false) String id, Principal principal) {
-		int numberUsersInOnePage = 10;
+		int USERS_PER_PAGE = 5;
 		HttpSession session = request.getSession();
 		if ((session.getAttribute("groupId") == null) || (session.getAttribute("username") == null)) {
 			UserEntity userDb = userDAO.findUserInfo(principal.getName());
@@ -46,7 +46,7 @@ public class CustomerController {
 		if (page == null)
 			page = 1;
 		double userCount = customerDAO.countNumOfCustomer();
-		int pageCount = (int) Math.ceil(userCount / numberUsersInOnePage);
+		int pageCount = (int) Math.ceil(userCount / USERS_PER_PAGE);
 		if (page > pageCount && pageCount > 0)
 			page = pageCount;
 		System.out.println(pageCount);
@@ -57,11 +57,11 @@ public class CustomerController {
 		}
 		model.addAttribute("customer", customer);
 		model.addAttribute("search", searchForm);
-		int start = (page - 1) * 10;
-		List<CustomerEntity> list = customerDAO.getListCustomer(start, start + numberUsersInOnePage);
+		int start = (page - 1) * USERS_PER_PAGE;
+		List<CustomerEntity> list = customerDAO.getListCustomer(start, start + USERS_PER_PAGE);
 
 		model.addAttribute("listCustomers", list);
-		model.addAttribute("numberUsersInOnePage", numberUsersInOnePage);
+		model.addAttribute("USERS_PER_PAGE", USERS_PER_PAGE);
 
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("page", page.intValue());

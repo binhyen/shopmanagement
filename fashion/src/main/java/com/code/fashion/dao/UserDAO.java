@@ -14,5 +14,7 @@ public interface UserDAO {
 	public void updateUser(UserEntity user);
 
 	public double getNumOfUser();
+	
+	public void deleteEmployee(String id);
 }
  
